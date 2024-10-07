@@ -1,19 +1,21 @@
 import argparse
 import sys
 
-from importlib.metadata import entry_points
+# from importlib.metadata import entry_points
 
-from llm_merging.evaluation import * 
-from llm_merging.data import * 
-from llm_merging.merging import *
+from evaluation import *
+from data import * 
+from merging import *
+# from llm_merging.merging 
 
 def all_merge_handlers():
     """Enumerate and Load (import) all merge methods."""
     loaded_merges = {
-        "llama_avg": LlamaAvg,
-        "tiny_llama_avg": TinyLlamaAvg,
-        "flant5_avg": FlanT5Avg,
-        ## TODO Add more merge methods here
+        # "llama_avg": LlamaAvg,
+        # "tiny_llama_avg": TinyLlamaAvg,
+        # "flant5_avg": FlanT5Avg,
+        "flan_small" : flan_small
+        # TODO Add more merge methods here
     }
     
     return loaded_merges

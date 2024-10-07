@@ -11,8 +11,8 @@ from transformers import (
     AutoTokenizer,
 )
 
-import llm_merging.model.decoder_functions as decoder_functions
-import llm_merging.model.encoder_decoder_functions as encoder_decoder_functions
+import model.decoder_functions as decoder_functions
+import model.encoder_decoder_functions as encoder_decoder_functions
 
 
 class Merges(object):

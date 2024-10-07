@@ -1,5 +1,5 @@
-import evaluate 
-import json 
+# import evaluate 
+# import json 
 import os 
 import pandas as pd
 
@@ -9,7 +9,7 @@ import torch
 from tqdm import tqdm
 from torch.utils import data
 
-from llm_merging.data import *
+from data import *
 
 def convert_dict_of_lists_to_list_of_dicts(dict_of_lists: Dict[Any, List]) -> List[Dict]:
     """
@@ -62,6 +62,7 @@ def evaluate_dataset(
 
     with torch.no_grad():
         for batch in tqdm(data_loader):
+            print(batch, "batch")
             # There are two types of evaluation models:
             # 1) multiple choice where the model scores each choice and predicts the choice with the highest score 
             # 2) generation where the model generate some output give some input 

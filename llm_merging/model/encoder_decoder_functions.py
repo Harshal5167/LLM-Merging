@@ -38,9 +38,24 @@ def compute_loss(transformer, tokenizer, batch):
 
     return loss
 
+# Ensure input is a list of strings
+def preprocess_batch(batch):
+    if isinstance(batch, str):
+        return [batch]  # Convert string to a list of strings
+    elif isinstance(batch, list) and all(isinstance(x, str) for x in batch):
+        return batch  # Already correct format
+    else:
+        raise ValueError("Input must be a string or list of strings")
+
+# Apply this function before passing to tokenizer
+# tokenized_batch = tokenize_batch(tokenizer, preprocess_batch(batch), transformer.device)
+
+
 def predict_multiple_choice(
     transformer, tokenizer, batch
 ):
+    print(batch, "batch1")
+    print("ghjuiopokj")
     tokenized_batch = tokenize_batch(tokenizer, batch, transformer.device)
 
 
@@ -128,7 +143,7 @@ def generate(
     return generation_output["sequences"].cpu().numpy().tolist(), generated_txt
 
 def tokenize_batch(tokenizer, batch, device):        
-
+    print("jsdoflk")
     tokenized_batch = {}
 
     # encoder decoder models pad to the right 
@@ -139,10 +154,13 @@ def tokenize_batch(tokenizer, batch, device):
     for key in keys_to_tokenize:
         if key in batch:
             # The values of the batch are normally a list of text.The exception is that for answer_choices, the values  is a list of list. We flatten this to a single list to pass is into the tokenizer 
+            print(batch[key], "input")
             if key == "answer_choices":
                 text = [item for list in batch[key] for item in list]
             else:
                 text = batch[key]
+            print(text, "text")
+            text=str(text)
 
             tokenized_dict = tokenizer(
                 text,
@@ -150,7 +168,7 @@ def tokenize_batch(tokenizer, batch, device):
                 padding="longest",
                 truncation="longest_first",
             )
-
+            print("0yes")
             input_ids = tokenized_dict["input_ids"]
             attention_mask = tokenized_dict["attention_mask"]
 
